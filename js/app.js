@@ -37,7 +37,7 @@ const FONT_CANDIDATES = {
   bold: ['FS Joey-Bold', 'FSJoey-Bold', 'FS-Joey-Bold', 'FSJoey_Bold', 'FS Joey Bold', 'fsjoey-bold', 'FSJoeyPro-Bold'],
   heavy: ['FS Joey-Heavy', 'FSJoey-Heavy', 'FS-Joey-Heavy', 'FSJoey_Heavy', 'FS Joey Heavy', 'fsjoey-heavy', 'FSJoeyPro-Heavy'],
 };
-const FONT_EXTS = ['ttf', 'otf', 'TTF', 'OTF', 'woff'];
+const FONT_EXTS = ['otf', 'ttf', 'OTF', 'TTF', 'woff'];
 
 /* ---------- Layout-Varianten & Felder ---------- */
 
@@ -608,6 +608,7 @@ function layoutCertificate(c) {
    ===================================================================== */
 
 function renderPreview() {
+  if (!state.fonts.regular) return; // Assets noch nicht geladen
   const c = collectCertFromForm();
   if (!c) return;
 
@@ -1287,14 +1288,17 @@ async function init() {
     $('app').classList.remove('hidden');
   }
 
-  await loadFonts();
-  await loadImages();
-  showAssetBanner();
-
+  // Formular sofort aufbauen – Assets (Fonts/Bilder) laden danach im
+  // Hintergrund, damit frühe Eingaben nicht überschrieben werden.
   populateTemplateSelect();
   resetFormForTemplate(currentTemplate(), false);
   renderSavedList();
   renderTemplatesList();
+
+  await loadFonts();
+  await loadImages();
+  showAssetBanner();
+  renderPreview();
 }
 
 // Für automatisierte Tests

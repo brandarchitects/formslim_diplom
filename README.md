@@ -6,7 +6,19 @@ FS-Joey-Schriften. Das Layout folgt verbindlich der Design-Vorlage
 `assets/reference/Zertifikat_neu.pdf` (alle Positionen, Schriftgrössen und
 Farben wurden direkt aus dem PDF übernommen).
 
-## Starten
+## Deployment auf Vercel (empfohlen)
+
+Das Repository ist für Vercel vorbereitet (`vercel.json`, `.vercelignore` –
+statische Site, kein Build nötig):
+
+1. Auf <https://vercel.com/new> das Repository
+   `brandarchitects/formslim_diplom` importieren
+   (Team «Brand Architects' projects»).
+2. Framework Preset: **Other** – Build Command und Output Directory leer
+   lassen. **Deploy** klicken.
+3. Fertig. Jeder Push auf den Default-Branch deployt automatisch neu.
+
+## Lokal starten
 
 Die App ist eine reine statische Web-App (kein Build, kein Server-Backend).
 Sie muss über HTTP ausgeliefert werden, z. B.:
@@ -19,10 +31,6 @@ npx serve .
 ```
 
 Danach im Browser öffnen: <http://localhost:8000>
-
-Alternativ kann das Repository direkt über **GitHub Pages** veröffentlicht
-werden (Settings → Pages → Branch auswählen) – die App läuft dann unter der
-Pages-URL.
 
 **Login-Passwort:** `diplform0087X`
 

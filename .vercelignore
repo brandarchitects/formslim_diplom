@@ -1,0 +1,6 @@
+# Nicht mit auf Vercel deployen:
+assets/reference/
+assets/fonts/MinionPro-Regular.otf
+assets/fonts/AdobeFnt24.lst
+README.md
+.gitignore
