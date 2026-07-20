@@ -1,13 +1,26 @@
 /* ============ Diplom Builder – Styles ============ */
 
+@font-face {
+  font-family: 'FS Joey UI';
+  src: url('../assets/fonts/FS Joey-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FS Joey UI';
+  src: url('../assets/fonts/FS Joey-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   --c-bg: #f4f4f2;
   --c-surface: #ffffff;
   --c-border: #e3e1dc;
   --c-text: #1d1d1f;
   --c-text-soft: #6b6b6b;
-  --c-primary: #1d1d1f;
-  --c-primary-hover: #3a3a3c;
+  --c-primary: #1e3a2a;
+  --c-primary-hover: #2c523c;
   --c-accent: #b78e4a;
   --c-green: #3e7c3a;
   --c-danger: #c0392b;
@@ -85,22 +98,52 @@ body {
 .login-screen {
   position: fixed; inset: 0;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(160deg, #f6f5f2 0%, #e9e7e1 100%);
+  background: radial-gradient(1200px 700px at 50% 30%, #fdfdfb 0%, #f1efe9 55%, #e7e4dc 100%);
   z-index: 100;
+  padding: 24px;
 }
 .login-card {
   background: #fff;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  padding: 44px 40px 36px;
-  width: 340px;
+  border-radius: 24px;
+  box-shadow: 0 2px 8px rgba(30, 58, 42, .06), 0 24px 70px rgba(30, 58, 42, .14);
+  padding: 72px 64px 64px;
+  width: 100%;
+  max-width: 480px;
   text-align: center;
 }
-.login-logo { font-size: 42px; margin-bottom: 10px; }
-.login-card h1 { font-size: 22px; margin-bottom: 2px; }
-.login-sub { color: var(--c-text-soft); font-size: 13px; margin-bottom: 24px; }
-.login-card .input { margin-bottom: 12px; text-align: center; }
-.login-error { color: var(--c-danger); font-size: 13px; margin-top: 12px; }
+.login-brand {
+  width: 230px;
+  max-width: 70%;
+  margin: 0 auto 40px;
+  display: block;
+}
+.login-card h1 {
+  font-family: 'FS Joey UI', var(--font-ui);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--c-primary);
+  margin-bottom: 8px;
+}
+.login-sub {
+  color: var(--c-text-soft);
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+.login-input {
+  margin-bottom: 14px;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+}
+.login-input:focus { border-color: var(--c-primary); }
+.login-btn {
+  padding: 14px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+}
+.login-error { color: var(--c-danger); font-size: 14px; margin-top: 16px; }
 .login-card.shake { animation: shake .35s; }
 @keyframes shake {
   20% { transform: translateX(-8px); } 40% { transform: translateX(8px); }
@@ -117,9 +160,13 @@ body {
   height: 58px;
   position: sticky; top: 0; z-index: 50;
 }
-.topbar-brand { display: flex; align-items: center; gap: 9px; }
-.topbar-logo { font-size: 22px; }
-.topbar-title { font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
+.topbar-brand { display: flex; align-items: center; gap: 12px; }
+.topbar-brandlogo { height: 36px; width: auto; display: block; }
+.topbar-title {
+  font-family: 'FS Joey UI', var(--font-ui);
+  font-weight: 700; font-size: 17px; letter-spacing: -.01em;
+  color: var(--c-primary);
+}
 .tabs { display: flex; gap: 4px; flex: 1; }
 .tab-btn {
   border: none; background: transparent; font-family: inherit;

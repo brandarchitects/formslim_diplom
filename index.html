@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diplom Builder – FormSlim &amp; selbergesundwerden</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  <link rel="icon" type="image/png" href="assets/logos/FormSlim.png">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -12,11 +12,11 @@
   <!-- ===================== LOGIN ===================== -->
   <div id="login-screen" class="login-screen">
     <form id="login-form" class="login-card" autocomplete="off">
-      <div class="login-logo">🎓</div>
+      <img class="login-brand" src="assets/logos/FormSlim.png" alt="FormSlim" onerror="this.style.display='none'">
       <h1>Diplom Builder</h1>
-      <p class="login-sub">FormSlim &amp; selbergesundwerden</p>
-      <input type="password" id="login-password" placeholder="Passwort" autofocus>
-      <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
+      <p class="login-sub">Kurs-Zertifikate für FormSlim &amp; selbergesundwerden</p>
+      <input type="password" id="login-password" class="input login-input" placeholder="Passwort" autofocus>
+      <button type="submit" class="btn btn-primary btn-block login-btn">Anmelden</button>
       <p id="login-error" class="login-error hidden">Falsches Passwort</p>
     </form>
   </div>
@@ -26,7 +26,7 @@
 
     <header class="topbar">
       <div class="topbar-brand">
-        <span class="topbar-logo">🎓</span>
+        <img class="topbar-brandlogo" src="assets/logos/FormSlim.png" alt="FormSlim" onerror="this.style.display='none'">
         <span class="topbar-title">Diplom Builder</span>
       </div>
       <nav class="tabs">
