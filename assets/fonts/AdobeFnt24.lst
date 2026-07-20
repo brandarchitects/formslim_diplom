@@ -1,0 +1,121 @@
+%!Adobe-FontList 1.24
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Invalid
+OutlineFileName:/Users/pascalfrey/Desktop/Zertifikat/Zertifikat/Document fonts/AdobeFnt24.lst
+FileLength:2271
+FileModTime:731373297
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:FSJoey-Bold
+FamilyName:FS Joey
+StyleName:Bold
+MenuName:FS Joey
+StyleBits:2
+WeightClass:700
+WidthClass:5
+AngleClass:0
+FullName:FS Joey Bold
+WritingScript:Roman
+OutlineFileName:/Users/pascalfrey/Desktop/Zertifikat/Zertifikat/Document fonts/FS Joey-Bold.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:57244
+FileModTime:706953912
+NameArray:0,Mac,4,FS Joey Bold
+NameArray:0,Win,1,FS Joey
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:FSJoey-Heavy
+FamilyName:FS Joey
+StyleName:Heavy
+MenuName:FS Joey Heavy
+StyleBits:0
+WeightClass:900
+WidthClass:5
+AngleClass:0
+FullName:FS Joey Heavy
+WritingScript:Roman
+OutlineFileName:/Users/pascalfrey/Desktop/Zertifikat/Zertifikat/Document fonts/FS Joey-Heavy.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:76320
+FileModTime:706953914
+NameArray:0,Mac,4,FS Joey Heavy
+NameArray:0,Win,1,FS Joey Heavy
+NameArray:0,Win,16,FS Joey
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:FSJoey
+FamilyName:FS Joey
+StyleName:Regular
+MenuName:FS Joey
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:FS Joey
+WritingScript:Roman
+OutlineFileName:/Users/pascalfrey/Desktop/Zertifikat/Zertifikat/Document fonts/FS Joey-Regular.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:64880
+FileModTime:706953919
+NameArray:0,Mac,4,FS Joey
+NameArray:0,Win,1,FS Joey
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:Type1
+FontName:MinionPro-Regular
+FamilyName:Minion Pro
+StyleName:Regular
+MenuName:Minion Pro
+StyleBits:0
+WeightClass:400
+WidthClass:5
+AngleClass:0
+FullName:Minion Pro
+WritingScript:Roman
+OutlineFileName:/Users/pascalfrey/Desktop/Zertifikat/Zertifikat/Document fonts/MinionPro-Regular.otf
+DataFormat:sfntData
+UsesStandardEncoding:yes
+isCFF:yes
+hasSVG:no
+hasSBIX:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:218640
+FileModTime:728923636
+DesignSize:110
+NameArray:0,Mac,4,Minion Pro
+NameArray:0,Win,1,Minion Pro
+%EndFont
+
