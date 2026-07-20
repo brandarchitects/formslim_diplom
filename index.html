@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diplom Builder – FormSlim &amp; selbergesundwerden</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="login-screen" class="login-screen">
+    <form id="login-form" class="login-card" autocomplete="off">
+      <div class="login-logo">🎓</div>
+      <h1>Diplom Builder</h1>
+      <p class="login-sub">FormSlim &amp; selbergesundwerden</p>
+      <input type="password" id="login-password" placeholder="Passwort" autofocus>
+      <button type="submit" class="btn btn-primary btn-block">Anmelden</button>
+      <p id="login-error" class="login-error hidden">Falsches Passwort</p>
+    </form>
+  </div>
+
+  <!-- ===================== APP ===================== -->
+  <div id="app" class="app hidden">
+
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="topbar-logo">🎓</span>
+        <span class="topbar-title">Diplom Builder</span>
+      </div>
+      <nav class="tabs">
+        <button class="tab-btn active" data-tab="builder">Neues Zertifikat</button>
+        <button class="tab-btn" data-tab="saved">Gespeicherte Zertifikate <span id="saved-count" class="badge-count"></span></button>
+        <button class="tab-btn" data-tab="templates">Vorlagen</button>
+      </nav>
+      <button id="logout-btn" class="btn btn-ghost btn-sm" title="Abmelden">Abmelden</button>
+    </header>
+
+    <div id="asset-banner" class="asset-banner hidden">
+      <div class="asset-banner-inner">
+        <strong>Hinweis:</strong> <span id="asset-banner-text"></span>
+        <button id="asset-banner-close" class="asset-banner-close" title="Ausblenden">×</button>
+      </div>
+    </div>
+
+    <!-- ============ TAB: BUILDER ============ -->
+    <main id="tab-builder" class="tab-panel active">
+      <div class="builder-layout">
+
+        <aside class="builder-form">
+          <div id="edit-mode-banner" class="edit-mode-banner hidden">
+            <span>Zertifikat wird bearbeitet</span>
+            <button id="edit-mode-cancel" class="btn btn-ghost btn-sm">Abbrechen / Neu</button>
+          </div>
+
+          <section class="form-section">
+            <h2>Vorlage</h2>
+            <select id="f-template" class="input"></select>
+          </section>
+
+          <section class="form-section">
+            <h2>Angaben zur Person</h2>
+            <label class="field">
+              <span>Name der Studentin / des Studenten *</span>
+              <input type="text" id="f-name" class="input" placeholder="z. B. Anna Muster">
+            </label>
+            <div id="dyn-person-fields"></div>
+            <label class="field">
+              <span>Zertifikat-ID</span>
+              <div class="input-group">
+                <input type="text" id="f-certid" class="input">
+                <button id="f-certid-regen" class="btn btn-ghost btn-sm" type="button" title="Neue ID generieren">↻</button>
+              </div>
+            </label>
+          </section>
+
+          <section class="form-section">
+            <details id="text-details">
+              <summary><h2>Texte anpassen</h2></summary>
+              <div class="details-body">
+                <div id="dyn-text-fields"></div>
+                <p class="field-hint">Änderungen gelten nur für dieses Zertifikat. Dauerhafte Anpassungen unter «Vorlagen».</p>
+              </div>
+            </details>
+          </section>
+
+          <div class="form-actions">
+            <button id="btn-export" class="btn btn-primary btn-block">Als PDF exportieren</button>
+            <div class="form-actions-row">
+              <button id="btn-save" class="btn btn-secondary">Speichern</button>
+              <button id="btn-save-export" class="btn btn-secondary">Speichern &amp; PDF</button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="builder-preview">
+          <div class="preview-toolbar">
+            <span class="preview-label">Vorschau (A4)</span>
+            <span id="preview-design-badge" class="design-badge"></span>
+          </div>
+          <div id="preview-wrap" class="preview-wrap">
+            <div id="preview-page" class="preview-page"></div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- ============ TAB: SAVED ============ -->
+    <main id="tab-saved" class="tab-panel">
+      <div class="saved-toolbar">
+        <input type="search" id="saved-search" class="input saved-search" placeholder="Suchen (Name, Kurs, ID) …">
+        <div class="saved-toolbar-right">
+          <button id="btn-backup-export" class="btn btn-ghost btn-sm">Backup exportieren</button>
+          <button id="btn-backup-import" class="btn btn-ghost btn-sm">Backup importieren</button>
+          <input type="file" id="backup-file-input" accept="application/json" class="hidden">
+        </div>
+      </div>
+      <div id="saved-list" class="saved-list"></div>
+      <p id="saved-empty" class="empty-hint hidden">Noch keine Zertifikate gespeichert.</p>
+    </main>
+
+    <!-- ============ TAB: TEMPLATES ============ -->
+    <main id="tab-templates" class="tab-panel">
+      <div class="templates-toolbar">
+        <p class="templates-intro">Hier legst du die Standardtexte der Vorlagen fest. Beim Ausstellen eines Zertifikats können die Texte trotzdem individuell angepasst werden. Das Layout folgt verbindlich der Design-Vorlage.</p>
+        <button id="btn-template-new" class="btn btn-secondary">+ Neue Vorlage</button>
+      </div>
+      <div id="templates-list" class="templates-list"></div>
+    </main>
+
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="libs/pdf-lib.min.js"></script>
+  <script src="libs/fontkit.umd.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
