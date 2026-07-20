@@ -33,9 +33,9 @@ const DESIGNS = {
 };
 
 const FONT_CANDIDATES = {
-  regular: ['FSJoey-Regular', 'FSJoey', 'FS-Joey-Regular', 'FSJoey_Regular', 'FS Joey Regular', 'fsjoey-regular', 'FSJoeyPro-Regular'],
-  bold: ['FSJoey-Bold', 'FS-Joey-Bold', 'FSJoey_Bold', 'FS Joey Bold', 'fsjoey-bold', 'FSJoeyPro-Bold'],
-  heavy: ['FSJoey-Heavy', 'FS-Joey-Heavy', 'FSJoey_Heavy', 'FS Joey Heavy', 'fsjoey-heavy', 'FSJoeyPro-Heavy'],
+  regular: ['FS Joey-Regular', 'FSJoey-Regular', 'FSJoey', 'FS-Joey-Regular', 'FSJoey_Regular', 'FS Joey Regular', 'fsjoey-regular', 'FSJoeyPro-Regular'],
+  bold: ['FS Joey-Bold', 'FSJoey-Bold', 'FS-Joey-Bold', 'FSJoey_Bold', 'FS Joey Bold', 'fsjoey-bold', 'FSJoeyPro-Bold'],
+  heavy: ['FS Joey-Heavy', 'FSJoey-Heavy', 'FS-Joey-Heavy', 'FSJoey_Heavy', 'FS Joey Heavy', 'fsjoey-heavy', 'FSJoeyPro-Heavy'],
 };
 const FONT_EXTS = ['ttf', 'otf', 'TTF', 'OTF', 'woff'];
 
@@ -364,14 +364,31 @@ function sniffImageType(bytes) {
   return null;
 }
 
+// JPEGs (z. B. CMYK/progressiv aus Photoshop) über Canvas zu Standard-RGB
+// re-kodieren – pdf-lib kann sonst nicht alle Varianten einbetten.
+async function normalizeJpeg(bytes) {
+  const blob = new Blob([bytes], { type: 'image/jpeg' });
+  const bitmap = await createImageBitmap(blob);
+  const canvas = document.createElement('canvas');
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+  canvas.getContext('2d').drawImage(bitmap, 0, 0);
+  const outBlob = await new Promise((res) => canvas.toBlob(res, 'image/jpeg', 0.9));
+  if (!outBlob) throw new Error('Canvas-Konvertierung fehlgeschlagen');
+  return await outBlob.arrayBuffer();
+}
+
 async function loadImages() {
   for (const key of Object.keys(DESIGNS)) {
     const d = DESIGNS[key];
     state.images[key] = { logo: null, background: null };
     for (const part of ['logo', 'background']) {
-      const bytes = await tryFetch(d[part]);
+      let bytes = await tryFetch(d[part]);
       if (bytes) {
         const type = sniffImageType(bytes);
+        if (type === 'jpg') {
+          try { bytes = await normalizeJpeg(bytes); } catch (e) { console.warn('JPEG-Normalisierung fehlgeschlagen', d[part], e); }
+        }
         if (type) {
           const url = URL.createObjectURL(new Blob([bytes], { type: type === 'png' ? 'image/png' : 'image/jpeg' }));
           const dims = await new Promise((res) => {
@@ -543,7 +560,7 @@ function layoutCertificate(c) {
     }
     T(v.footerNote, { weight: 'bold', size: 10, y: 752.54 });
 
-    T(`${v.idLabel || 'Zertifikat-ID'}: ${c.certId}`, { size: 8, y: 775, color: COL_SOFT });
+    T(`${v.idLabel || 'Zertifikat-ID'}: ${c.certId}`, { size: 8, y: 766, color: COL_SOFT });
 
   } else {
     /* --- Variante B: Verleihungs-Zertifikat (Design-Sprache der Vorlage) --- */
@@ -679,8 +696,10 @@ async function buildPdf(c) {
   const fonts = {};
   for (const weight of ['regular', 'bold', 'heavy']) {
     const f = state.fonts[weight];
+    // Vollständig einbetten (kein Subsetting): fontkit-Subsetting ist mit
+    // manchen OTF/CFF-Fonts fehlerhaft, und die FS-Joey-Dateien sind klein.
     fonts[weight] = f.bytes
-      ? await doc.embedFont(f.bytes, { subset: true })
+      ? await doc.embedFont(f.bytes, { subset: false })
       : await doc.embedFont(weight === 'regular' ? StandardFonts.Helvetica : StandardFonts.HelveticaBold);
   }
 
@@ -1262,6 +1281,12 @@ async function init() {
   loadCerts();
   updateSavedCount();
 
+  // Bestehende Session sofort wiederherstellen (Assets laden im Hintergrund)
+  if (sessionStorage.getItem(SS_AUTH) === '1') {
+    $('login-screen').classList.add('hidden');
+    $('app').classList.remove('hidden');
+  }
+
   await loadFonts();
   await loadImages();
   showAssetBanner();
@@ -1270,12 +1295,6 @@ async function init() {
   resetFormForTemplate(currentTemplate(), false);
   renderSavedList();
   renderTemplatesList();
-
-  if (sessionStorage.getItem(SS_AUTH) === '1') {
-    $('login-screen').classList.add('hidden');
-    $('app').classList.remove('hidden');
-    renderPreview();
-  }
 }
 
 // Für automatisierte Tests
