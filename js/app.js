@@ -552,6 +552,10 @@ function layoutCertificate(c) {
       sy += 20;
     }
 
+    // Zertifikat-ID in der freien Zone zwischen Signaturblock und Fusszeile
+    // (unterhalb von y≈762 verlaufen die Rahmenlinien des Hintergrunds)
+    T(`${v.idLabel || 'Zertifikat-ID'}: ${c.certId}`, { size: 8, y: 703.5, color: COL_SOFT });
+
     // Fusszeilen
     let fy = 717.92;
     for (const line of String(v.footerAddress || '').split('\n')) {
@@ -559,8 +563,6 @@ function layoutCertificate(c) {
       fy += 12;
     }
     T(v.footerNote, { weight: 'bold', size: 10, y: 752.54 });
-
-    T(`${v.idLabel || 'Zertifikat-ID'}: ${c.certId}`, { size: 8, y: 766, color: COL_SOFT });
 
   } else {
     /* --- Variante B: Verleihungs-Zertifikat (Design-Sprache der Vorlage) --- */
